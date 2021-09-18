@@ -4,9 +4,10 @@
   "description": "",
   "author": "",
   "scripts": {
-    "start": "node server.improved.js"
+    "start": "node server.js"
   },
   "dependencies": {
+    "cookie-session": "^1.4.0",
     "express": "^4.17.1",
     "mime": "^2.4.4",
     "mongodb": "^4.1.1"
