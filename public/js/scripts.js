@@ -76,10 +76,9 @@ let selectedRowName = ''
         "Content-Type":"application/json"
       }
     })
-    .then( function( response ) {
-      return response.json() 
-    })
+    .then(response => response.json())
     .then(function(jsonResponse){
+        
       table = document.querySelector("#allEntries")
       for (let i = 1; i < table.rows.length; i++){
         if (table.rows[i].cells[0].innerHTML === selectedRowName){
@@ -90,6 +89,7 @@ let selectedRowName = ''
         }
       }
       selectedRowName = '' //reset
+      
       addRow(jsonResponse)
     })    
   }

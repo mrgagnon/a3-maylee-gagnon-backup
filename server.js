@@ -55,7 +55,7 @@ app.get( '/', (req,res) => {
 
 app.post( '/login', (req,res)=> {
   //Express.urlencoded kv pairs -> object key= name of each form field & value = the user entered
-  console.log( req.body )
+  //console.log( req.body )
   
   // TODO for A3, you should check username / password combos in your database
   if( req.body.password === 'test' ) {
@@ -70,13 +70,21 @@ app.post( '/login', (req,res)=> {
     res.sendFile( __dirname + '/public/login.html' )
   }
 })
-app.post( '/submit', bodyParser.json(), (req,res) => {
-  //What???, assumes only one object to insert
-  console.log("hi")
-  console.log(res.body)
-  collection.insertOne( req.body ).then( result => res.json( result ) )
-  
 
+
+//app.post( '/submit', bodyParser.json(), (req,res) => {
+  //What???, assumes only one object to insert
+  //console.log("server.js for submit")
+  //console.log(req.body)
+  //collection.insertOne( req.body ).then( result => res.json( result ) )
+//})
+
+app.post( '/submit', bodyParser.json(), (req,res) => {
+  // assumes only one object to insert
+  console.log("server.js submit button")
+  collection.insertOne( req.body )
+    .then( insertResponse => collection.findOne( insertResponse.insertedId ) ) 
+    .then( findResponse   => res.json( findResponse ) )
 })
 
 
