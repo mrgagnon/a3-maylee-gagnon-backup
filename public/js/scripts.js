@@ -1,5 +1,3 @@
-// Add some Javascript code here, to run on the front end.
-
 let selectedRowName = ''
 
     const selectingRow = function(){
@@ -73,7 +71,10 @@ let selectedRowName = ''
 
     fetch( '/submit', {
       method:'POST',
-      body 
+      body: body,
+      headers:{ 
+        "Content-Type":"application/json"
+      }
     })
     .then( function( response ) {
       return response.json() 
