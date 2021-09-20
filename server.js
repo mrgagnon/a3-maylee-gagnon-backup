@@ -71,23 +71,24 @@ app.post( '/login', (req,res)=> {
   }
 })
 
-
-//app.post( '/submit', bodyParser.json(), (req,res) => {
-  //What???, assumes only one object to insert
-  //console.log("server.js for submit")
-  //console.log(req.body)
-  //collection.insertOne( req.body ).then( result => res.json( result ) )
-//})
-
 app.post( '/submit', bodyParser.json(), (req,res) => {
   // assumes only one object to insert
   console.log("server.js submit button")
   collection.insertOne( req.body )
-    .then( insertResponse => collection.findOne( insertResponse.insertedId ) ) 
-    .then( findResponse   => res.json( findResponse ) )
+    .then( insertResponse => {
+       return collection.findOne(insertResponse.insertedId ) 
+    })
+    .then( findResponse => {
+      return res.json(findResponse)
+    })
 })
 
-
+app.post( '/deleteEntry', bodyParser.json(), (req,res) => {
+  console.log("todo delete the entry from the database")
+  entry = req.body
+  console.log(entry.nameToRemove)
+  collection.deleteOne({ _id:mongodb.ObjectId(entry.nameToRemove)})
+})
 
 //Add some middleware that always sends unauthenicaetd users to the login page
 app.use( function( req,res,next) {
