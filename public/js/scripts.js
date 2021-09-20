@@ -20,7 +20,7 @@ let selectedRowName = ''
            })
         }
 
-        //Selecting for modifying 
+        //Selecting for modifying, Populate entry fields and get unique ID
         table.rows[i].cells[0].onclick = function(){
           document.querySelector("#name").value = table.rows[i].cells[0].innerHTML
           document.querySelector("#phoneNum").value = table.rows[i].cells[1].innerHTML
@@ -31,7 +31,7 @@ let selectedRowName = ''
           else{
             document.querySelector("#toGift").checked = false
           }
-          selectedRowName = table.rows[i].cells[0].innerHTML
+          selectedRowName = table.rows[i].cells[6].innerHTML
         }
       }
     }
@@ -84,14 +84,10 @@ let selectedRowName = ''
     })
     .then(response => response.json())
     .then(function(jsonResponse){
-
       table = document.querySelector("#allEntries")
       for (let i = 1; i < table.rows.length; i++){
-        if (table.rows[i].cells[0].innerHTML === selectedRowName){
+        if (table.rows[i].cells[6].innerHTML === selectedRowName){
           table.deleteRow(i) 
-        }
-        else if (table.rows[i].cells[0].innerHTML === json.name){
-          table.deleteRow(i)
         }
       }
       selectedRowName = '' //reset

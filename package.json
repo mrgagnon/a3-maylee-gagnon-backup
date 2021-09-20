@@ -1,8 +1,8 @@
 {
-  "name": "",
+  "name": "A3",
   "version": "",
-  "description": "",
-  "author": "",
+  "description": "WPI CS 4241 Assignment 3",
+  "author": "Maylee Gagnon",
   "scripts": {
     "start": "node server.js"
   },

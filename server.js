@@ -28,23 +28,6 @@ client.connect()
   })
   .then( console.log )
 
-//Calculates 30 days before the next birthday 
-const calcGiftDate = function(birthday) {
-  const today = new Date();
-  if(birthday === ''){
-    return new Date(today.getFullYear()+1, 0,1).toLocaleDateString()
-  }
-  const bday = new Date(birthday);
-  bday.setFullYear(today.getFullYear());
-  getByDay = new Date(bday)
-  getByDay.setDate(getByDay.getDate() - 30)
-
-  if (today >= bday) { //This year's birthday has passed so plan for the next one 
-	  getByDay.setFullYear(getByDay.getFullYear()+1)
-  } 
-  return getByDay.toLocaleDateString()
-}
-  
 //Route to get all docs
 app.get( '/', (req,res) => {
   if( collection !== null ) {
@@ -73,7 +56,12 @@ app.post( '/login', (req,res)=> {
 
 app.post( '/submit', bodyParser.json(), (req,res) => {
   // assumes only one object to insert
-  console.log("server.js submit button")
+  entry = req.body
+  
+  if (entry.rowName !== ''){
+    collection.deleteOne({ _id:mongodb.ObjectId(entry.rowName)})
+  }
+
   collection.insertOne( req.body )
     .then( insertResponse => {
        return collection.findOne(insertResponse.insertedId ) 
@@ -81,12 +69,25 @@ app.post( '/submit', bodyParser.json(), (req,res) => {
     .then( findResponse => {
       return res.json(findResponse)
     })
+
+  /*
+  if (entry.rowName === ''){
+    collection.insertOne( req.body )
+    .then( insertResponse => {
+       return collection.findOne(insertResponse.insertedId ) 
+    })
+    .then( findResponse => {
+      return res.json(findResponse)
+    })
+  }
+  else { //Modify 
+
+  }*/
+ 
 })
 
 app.post( '/deleteEntry', bodyParser.json(), (req,res) => {
-  console.log("todo delete the entry from the database")
   entry = req.body
-  console.log(entry.nameToRemove)
   collection.deleteOne({ _id:mongodb.ObjectId(entry.nameToRemove)})
 })
 
