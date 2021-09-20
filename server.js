@@ -54,6 +54,16 @@ app.post( '/login', (req,res)=> {
   }
 })
 
+
+app.post( '/getUserContacts', (req,res) => {
+  collection.findOne({username:"testUser"})
+  .then(findResponse => {
+    let obj_ids = findResponse.entries.map(function(id) { return mongodb.ObjectId(id)})
+    collection.find({_id: {$in: obj_ids}}).toArray().then( result => res.json( result ) )
+  })
+}) 
+
+
 app.post( '/submit', bodyParser.json(), (req,res) => {
   // assumes only one object to insert
   entry = req.body
@@ -69,21 +79,6 @@ app.post( '/submit', bodyParser.json(), (req,res) => {
     .then( findResponse => {
       return res.json(findResponse)
     })
-
-  /*
-  if (entry.rowName === ''){
-    collection.insertOne( req.body )
-    .then( insertResponse => {
-       return collection.findOne(insertResponse.insertedId ) 
-    })
-    .then( findResponse => {
-      return res.json(findResponse)
-    })
-  }
-  else { //Modify 
-
-  }*/
- 
 })
 
 app.post( '/deleteEntry', bodyParser.json(), (req,res) => {

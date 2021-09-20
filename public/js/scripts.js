@@ -1,3 +1,5 @@
+//const { response } = require("express")
+
 let selectedRowName = ''
 
     const selectingRow = function(){
@@ -99,4 +101,17 @@ let selectedRowName = ''
   window.onload = function() {
     const button = document.querySelector( 'button' )
     button.onclick = submit
+
+    fetch('/getUserContacts', {
+     method:'POST'
+    })
+    .then(response => response.json())
+    .then(res => {
+      res.forEach(element => {
+        addRow(element)
+        //console.log(res)
+      })
+      
+    })
+    //need to call addRow for each of the entries to display them 
   }
