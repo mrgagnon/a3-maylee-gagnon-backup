@@ -38,9 +38,21 @@ app.get( '/', (req,res) => {
 
 app.post( '/login', (req,res)=> {
   //Express.urlencoded kv pairs -> object key= name of each form field & value = the user entered
-  //console.log( req.body )
   
+  /*let isLoginvalid = false 
+
   // TODO for A3, you should check username / password combos in your database
+  //Look for that username 
+  collection.findOne({"username": "testIfWrong"}) //req.body.username}
+  .then(findResponse => {
+    if (findResponse === null){
+      console.log("TODO make new username")
+    }
+    else{
+      //look up password 
+    }
+  })
+*/
   if( req.body.password === 'test' ) {
     //Define a variable that we can check in other middleware
     //The session object is added to our requests by the cookie-session middleware
@@ -70,13 +82,23 @@ app.post( '/submit', bodyParser.json(), (req,res) => {
   
   if (entry.rowName !== ''){
     collection.deleteOne({ _id:mongodb.ObjectId(entry.rowName)})
+    .then(response => {
+      collection.updateOne({'username':'testUser'},{ $pull: { 'entries':entry.rowName} })
+    })
   }
+  
 
+  let id = ""
   collection.insertOne( req.body )
     .then( insertResponse => {
-       return collection.findOne(insertResponse.insertedId ) 
+      id = insertResponse.insertedId 
+      collection.updateOne({'username':'testUser'},{ $push: { 'entries':id.toString()} })
+    })
+    .then(response => {
+      return collection.findOne(id ) 
     })
     .then( findResponse => {
+
       return res.json(findResponse)
     })
 })
@@ -84,6 +106,9 @@ app.post( '/submit', bodyParser.json(), (req,res) => {
 app.post( '/deleteEntry', bodyParser.json(), (req,res) => {
   entry = req.body
   collection.deleteOne({ _id:mongodb.ObjectId(entry.nameToRemove)})
+  .then(response => {
+    collection.updateOne({'username':'testUser'},{ $pull: { 'entries':entry.nameToRemove} })
+  })
 })
 
 //Add some middleware that always sends unauthenicaetd users to the login page

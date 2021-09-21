@@ -1,5 +1,3 @@
-//const { response } = require("express")
-
 let selectedRowName = ''
 
     const selectingRow = function(){
@@ -109,9 +107,6 @@ let selectedRowName = ''
     .then(res => {
       res.forEach(element => {
         addRow(element)
-        //console.log(res)
-      })
-      
+      })     
     })
-    //need to call addRow for each of the entries to display them 
   }
