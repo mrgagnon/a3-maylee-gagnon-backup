@@ -2,12 +2,33 @@ const express = require( 'express' ),
       mongodb = require( 'mongodb' ),
       cookie  = require( 'cookie-session' ),
       bodyParser = require('body-parser'),
+      slash   = require('express-slash'),
+      compression = require('compression'),
+      responseTime = require('response-time'),
       app = express()
+app.use(compression())
 app.use( express.urlencoded({ extended:true }) )
+
+app.use(responseTime())
+app.use(responseTime(function (req, res, time) {
+  console.log("Response time " + time + " milliseconds")
+}))
+
+//Slash middle ware 
+app.enable('strict routing');
+var router = express.Router({
+    caseSensitive: app.get('case sensitive routing'),
+    strict       : app.get('strict routing')
+});
+app.use(router);
+app.use(slash());
+router.get('/', function (req, res) {
+  res.redirect( 'login.html' )
+});
 
 let curUser = ""
 
-//  cookie middleware! The keys are used for encryption and should be changed
+//Cookie middleware 
 app.use( cookie({
   name: 'session',
   keys: ['testKey1', 'testKey2']
@@ -77,11 +98,13 @@ app.post( '/login', (req,res)=> {
 })
 
 app.post( '/getUserContacts', (req,res) => {
-  collection.findOne({username:curUser})
-  .then(findResponse => {
-    let obj_ids = findResponse.entries.map(function(id) { return mongodb.ObjectId(id)})
-    collection.find({_id: {$in: obj_ids}}).toArray().then( result => res.json( result ) )
-  })
+  if( collection !== null ) {
+    collection.findOne({username:curUser})
+    .then(findResponse => {
+      let obj_ids = findResponse.entries.map(function(id) { return mongodb.ObjectId(id)})
+      collection.find({_id: {$in: obj_ids}}).toArray().then( result => res.json( result ) )
+    })
+  }
 }) 
 
 app.post( '/submit', bodyParser.json(), (req,res) => {
@@ -118,7 +141,7 @@ app.post( '/deleteEntry', bodyParser.json(), (req,res) => {
   })
 })
 
-//Add some middleware that always sends unauthenicaetd users to the login page
+//Middleware that always sends unauthenicaetd users to the login page
 app.use( function( req,res,next) {
   if( req.session.login === true )
     next()
