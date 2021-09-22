@@ -7,10 +7,10 @@ app.use( express.urlencoded({ extended:true }) )
 
 let curUser = ""
 
-// TODO cookie middleware! The keys are used for encryption and should be changed
+//  cookie middleware! The keys are used for encryption and should be changed
 app.use( cookie({
   name: 'session',
-  keys: ['key1', 'key2']
+  keys: ['testKey1', 'testKey2']
 }))
 
 //TODO switch to env when moving to glitch

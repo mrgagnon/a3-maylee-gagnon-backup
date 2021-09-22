@@ -107,6 +107,6 @@ let selectedRowName = ''
     .then(res => {
       res.forEach(element => {
         addRow(element)
-      })     
+      })    
     })
-  }
+}
