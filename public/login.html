@@ -11,10 +11,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
   </head>
   <body>
+    <h3>Login</h3>
     <form action='/login' method='POST'>
-      <input type='text' name='username'>
-      <input type='password' name='password'>
+      <label for ="username">Username:</label>
+      <input id = "username" type='text' name='username'>
+
+      <label for ="password">Password:</label>
+      <input id = "password"type='password' name='password'>
+
       <input type='submit'>
     </form>
+    <p>Note: New usernames will be automatically created new user accounts</p>
   </body>
 </html>

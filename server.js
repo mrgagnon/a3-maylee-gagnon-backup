@@ -101,8 +101,10 @@ app.post( '/getUserContacts', (req,res) => {
   if( collection !== null ) {
     collection.findOne({username:curUser})
     .then(findResponse => {
+      if(findResponse !== null){
       let obj_ids = findResponse.entries.map(function(id) { return mongodb.ObjectId(id)})
       collection.find({_id: {$in: obj_ids}}).toArray().then( result => res.json( result ) )
+      }
     })
   }
 }) 
