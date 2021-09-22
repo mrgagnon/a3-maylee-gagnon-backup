@@ -28,7 +28,7 @@ HTML Inputs/Fields:
 
 ## Technical Achievements
 - **Tech Achievement 1**: 
-
+I used Heroku to host site instead of Glitch. I thought the service was similar to Glitch. I first tried to follow their instructions to connect and deploy through the command line but I had issues getting that to work. I then saw on the website a way to connect to the github project directly which worked. Heroku is able to automatically deploy when a push occurs. This seems to make changes easier than in Glitch. 
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
