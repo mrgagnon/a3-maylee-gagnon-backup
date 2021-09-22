@@ -1,6 +1,4 @@
-test
-
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
+https://a3-maylee-gagnon.herokuapp.com/
 
 ## Your Web Application Title
 This application keeps track of a simple contact list including each person's name, phone number, birthday, and whether to buy the person a gift. 
