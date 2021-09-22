@@ -7,7 +7,8 @@ Goals: The goal of this project was to expand on assignment2 and modify the serv
 
 Challenges: I had a hard time getting the list of entry documents from a particular user. I could get the list of object id's and retrieve each document, however, getting them to array format and returned was difficult. I also found it challenage to keep track of the promises and .then's. I would want to nestle them and had some scope issues with the way I originally organized some code. 
 
-Authentication strategy: My strategy was based on example provided, with simple html and cookies. I chose this because it seemed the most straightforward to implement. I also just stored the passwords as plain text. 
+Authentication strategy: My strategy was based on example provided, with simple html and cookies. I chose this because it seemed the most straightforward to implement. I also just stored the passwords as plain text. New usernames will be automatically created a new user account. 
+    Test Account: Username: testUser Password: test
 
 CSS framework: I used milligram (https://milligram.io/). I looked through the provided list and like the look of this one. The design was simple and clean which I liked. I made no modification to the CSS framework. 
 
@@ -23,6 +24,7 @@ HTML Inputs/Fields:
     2. Password
     3. Date 
     4. Checkbox
+
 
 ## Technical Achievements
 - **Tech Achievement 1**: 
