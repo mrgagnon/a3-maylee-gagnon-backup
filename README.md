@@ -18,6 +18,11 @@ Express middlware packaged:
     4. Compression: Compresses the response for all requests 
     5. Response time: Times the requests in the servers and outputs it to the console
 
+HTML Inputs/Fields: 
+    1. Text
+    2. Password
+    3. Date 
+    4. Checkbox
 
 ## Technical Achievements
 - **Tech Achievement 1**: 
